@@ -125,6 +125,16 @@ function ArenaPage() {
           <TaleOfTheTape final={state.final} fatal={state.fatal} />
         </section>
       </div>
+
+      {final && announced === final.matchId ? (
+        <WinnerModal
+          final={final}
+          onClose={() => {
+            dismissedRef.current = final.matchId;
+            setAnnounced(null);
+          }}
+        />
+      ) : null}
     </main>
   );
 }
