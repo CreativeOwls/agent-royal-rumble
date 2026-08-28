@@ -152,16 +152,25 @@ function LeaderboardPage() {
       <div className="mx-auto flex max-w-6xl flex-col gap-8">
         <header className="flex flex-wrap items-baseline justify-between gap-3">
           <div>
-            <h1 className="display-type text-xl text-foreground sm:text-2xl">Career Leaderboard</h1>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <h1 className="display-type text-xl tracking-tight text-foreground sm:text-2xl">
+              Career Leaderboard
+            </h1>
+            <span aria-hidden="true" className="header-rule mt-2 w-40" />
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               Every prompt ever fought over, and the model that took the belt for it.
             </p>
           </div>
-          <nav className="flex gap-4 text-xs text-muted-foreground">
-            <Link to="/arena" className="underline-offset-4 hover:text-gold hover:underline">
+          <nav className="flex gap-2 text-xs text-muted-foreground">
+            <Link
+              to="/arena"
+              className="spice rounded-full border border-arena-panel-edge px-3 py-1.5 hover:border-gold hover:text-gold"
+            >
               Arena
             </Link>
-            <Link to="/leaderboard" className="underline-offset-4 hover:text-gold hover:underline">
+            <Link
+              to="/leaderboard"
+              className="spice rounded-full border border-arena-panel-edge px-3 py-1.5 hover:border-gold hover:text-gold"
+            >
               Leaderboard
             </Link>
           </nav>
@@ -173,10 +182,11 @@ function LeaderboardPage() {
           </p>
         ) : null}
 
-        <section aria-labelledby="career-heading" className="space-y-3">
-          <h2 id="career-heading" className="display-type text-sm text-foreground">
+        <section aria-labelledby="career-heading" className="space-y-4">
+          <h2 id="career-heading" className="display-type text-sm tracking-widest text-foreground">
             Career Records
           </h2>
+
 
           {!matches ? (
             <p className="numeral-type text-xs text-muted-foreground">Pulling the record books…</p>
@@ -187,7 +197,11 @@ function LeaderboardPage() {
               return (
                 <article
                   key={row.modelId}
-                  className="rounded-xl border bg-arena-panel/60 p-4"
+                  className={
+                    isChampion
+                      ? "panel-elevated gold-elevated rounded-2xl border bg-gradient-to-r from-gold/10 to-transparent p-4 sm:p-5"
+                      : "panel-elevated rounded-2xl border bg-arena-panel/60 p-4 sm:p-5"
+                  }
                   style={
                     competitor
                       ? ({
@@ -202,13 +216,22 @@ function LeaderboardPage() {
                 >
                   <div className="flex flex-wrap items-center gap-4">
                     {competitor ? (
-                      <FighterFigure
-                        competitor={competitor}
-                        state="finished"
-                        isWinner={isChampion}
-                        className="h-20 w-16 shrink-0"
-                      />
+                      <div className="relative h-20 w-16 shrink-0">
+                        <span
+                          aria-hidden="true"
+                          className={
+                            isChampion ? "fighter-portal fighter-portal-champion" : "fighter-portal"
+                          }
+                        />
+                        <FighterFigure
+                          competitor={competitor}
+                          state="finished"
+                          isWinner={isChampion}
+                          className="relative h-full w-full"
+                        />
+                      </div>
                     ) : null}
+
 
                     <div className="min-w-[9rem] flex-1">
                       <p className="display-type text-sm" style={{ color: "var(--accent)" }}>
@@ -260,8 +283,8 @@ function LeaderboardPage() {
           )}
         </section>
 
-        <section aria-labelledby="recent-heading" className="space-y-3">
-          <h2 id="recent-heading" className="display-type text-sm text-foreground">
+        <section aria-labelledby="recent-heading" className="space-y-4">
+          <h2 id="recent-heading" className="display-type text-sm tracking-widest text-foreground">
             Recent Prompts &amp; Their Champions
           </h2>
 
@@ -274,7 +297,7 @@ function LeaderboardPage() {
             </p>
           ) : null}
 
-          <ul className="grid gap-3 md:grid-cols-2">
+          <ul className="grid gap-4 md:grid-cols-2">
             {recent.map((match) => {
               const champion = match.winner_model ? competitorById(match.winner_model) : undefined;
               return (
@@ -282,9 +305,10 @@ function LeaderboardPage() {
                   <Link
                     to="/match/$matchId"
                     params={{ matchId: match.id }}
-                    className="flex h-full gap-4 rounded-xl border border-arena-panel-edge bg-arena-panel/60 p-4 transition-colors hover:border-gold"
+                    className="spice spice-accent panel-elevated flex h-full gap-4 rounded-2xl border border-arena-panel-edge bg-arena-panel/60 p-4 hover:border-gold"
                     style={
                       champion
+
                         ? ({
                             "--accent": `var(${champion.accentVar})`,
                             "--accent-soft": `var(${champion.accentSoftVar})`,

@@ -43,15 +43,17 @@ export default function PromoDesk({
   return (
     <section
       aria-labelledby="promo-desk-heading"
-      className="rounded-xl border border-arena-panel-edge bg-arena-panel/70 p-5 backdrop-blur sm:p-8"
+      className="panel-elevated speed-lines rounded-2xl border border-arena-panel-edge bg-arena-panel/70 p-5 backdrop-blur sm:p-8"
     >
       <h2 id="promo-desk-heading" className="display-type text-2xl text-foreground sm:text-3xl">
         Promo Desk
       </h2>
-      <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+      <span aria-hidden="true" className="header-rule mt-2 w-40" />
+      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
         Cut your promo. Four models take the same task; the referee never sees their names. Set the
         challenge, tune the judging weights, then ring the bell.
       </p>
+
 
       <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
         <div>
@@ -74,7 +76,7 @@ export default function PromoDesk({
               key={sample}
               type="button"
               onClick={() => onTaskChange(sample)}
-              className="rounded-full border border-arena-panel-edge px-2.5 py-1 text-[10px] text-muted-foreground transition-colors hover:border-gold hover:text-gold"
+              className="spice rounded-full border border-arena-panel-edge px-2.5 py-1 text-[10px] text-muted-foreground hover:border-gold hover:text-gold"
             >
               {sample.slice(0, 38)}…
             </button>
@@ -82,9 +84,13 @@ export default function PromoDesk({
         </div>
       </div>
 
-      <div className="mt-5 flex gap-2">
-        <Button onClick={onStart} disabled={!canStart} className="flex-1 bg-gold text-black hover:bg-gold/90">
-          {running ? "Match in progress…" : "Ring the bell"}
+      <div className="mt-6 flex gap-3">
+        <Button
+          onClick={onStart}
+          disabled={!canStart}
+          className="spice bell-button gold-elevated flex-1 bg-gold text-background hover:bg-gold/90"
+        >
+          {running ? "Match in progress…" : "🔔 Ring the Bell"}
         </Button>
         <Button
           variant="outline"
@@ -92,13 +98,14 @@ export default function PromoDesk({
           disabled={running}
           className={
             finished
-              ? "border-gold/60 text-gold hover:bg-gold/10 hover:text-gold"
-              : "border-arena-panel-edge"
+              ? "spice gold-elevated border-gold/60 text-gold hover:bg-gold/10 hover:text-gold"
+              : "spice border-arena-panel-edge"
           }
         >
           {finished ? "Run next match" : "Clear"}
         </Button>
       </div>
+
         </div>
 
         <fieldset className="rounded-lg border border-arena-panel-edge/60 p-4">

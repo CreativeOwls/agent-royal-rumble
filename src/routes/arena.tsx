@@ -59,12 +59,15 @@ function ArenaPage() {
           onClick={() =>
             lovable.auth.signInWithOAuth("google", { redirect_uri: `${window.location.origin}/arena` })
           }
-          className="inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition-transform hover:scale-105"
+          className="spice inline-flex items-center gap-3 rounded-full bg-card px-6 py-3 text-sm font-medium text-card-foreground shadow-lg"
         >
           <GoogleIcon className="h-5 w-5" />
           Sign in with Google
         </button>
-        <Link to="/" className="text-xs text-muted-foreground underline-offset-4 hover:underline">
+        <Link
+          to="/"
+          className="spice rounded-full px-3 py-1 text-xs text-muted-foreground hover:text-gold"
+        >
           Back to the marquee
         </Link>
       </main>
@@ -73,22 +76,34 @@ function ArenaPage() {
 
   return (
     <main className="min-h-screen bg-arena-floor px-4 py-8">
-      <header className="mx-auto mb-6 flex max-w-7xl items-baseline justify-between">
-        <h1 className="display-type text-xl text-foreground sm:text-2xl">Agent Royal Rumble — Arena</h1>
-        <nav className="flex gap-4 text-xs text-muted-foreground">
-          <Link to="/arena" className="underline-offset-4 hover:text-gold hover:underline">
+      <header className="mx-auto mb-8 flex max-w-7xl items-baseline justify-between gap-4">
+        <div>
+          <h1 className="display-type text-xl tracking-tight text-foreground sm:text-2xl">
+            Agent Royal Rumble — Arena
+          </h1>
+          <span aria-hidden="true" className="header-rule mt-2 w-32" />
+        </div>
+        <nav className="flex gap-2 text-xs text-muted-foreground">
+          <Link
+            to="/arena"
+            className="spice rounded-full border border-arena-panel-edge px-3 py-1.5 hover:border-gold hover:text-gold"
+          >
             Arena
           </Link>
-          <Link to="/leaderboard" className="underline-offset-4 hover:text-gold hover:underline">
+          <Link
+            to="/leaderboard"
+            className="spice rounded-full border border-arena-panel-edge px-3 py-1.5 hover:border-gold hover:text-gold"
+          >
             Leaderboard
           </Link>
         </nav>
       </header>
 
+
       <div className="mx-auto flex max-w-7xl flex-col gap-6">
         <section
           aria-label="Arena hero"
-          className="relative overflow-hidden rounded-2xl border border-border bg-background"
+          className="panel-elevated speed-lines relative overflow-hidden rounded-3xl border border-border bg-background"
         >
           <img
             src={ringHeroAsset.url}
@@ -101,11 +116,13 @@ function ArenaPage() {
             <p className="numeral-type text-[0.65rem] uppercase tracking-[0.35em] text-gold">
               DevFest DC 26
             </p>
-            <h2 className="display-type mt-2 text-2xl text-foreground sm:text-4xl">
+            <h2 className="display-type mt-2 text-2xl leading-[1.05] text-foreground sm:text-4xl">
               Four models. One task. One belt.
             </h2>
+            <span aria-hidden="true" className="header-rule mt-3 w-48" />
           </div>
         </section>
+
 
         <section aria-label="Promo desk">
           <PromoDesk
