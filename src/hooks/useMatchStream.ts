@@ -59,6 +59,7 @@ export function useMatchStream() {
   const abortRef = useRef<AbortController | null>(null);
 
   const apply = useCallback((event: MatchEvent) => {
+    if (event.type === "final" || event.type === "fatal") playBell();
     setState((prev) => {
       const fighters = { ...prev.fighters };
       const patch = (modelId: string, next: Partial<FighterLive>) => {
