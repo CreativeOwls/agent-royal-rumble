@@ -247,7 +247,7 @@ function LeaderboardPage() {
                       ) : null}
                     </div>
 
-                    <dl className="numeral-type grid w-full flex-1 grid-cols-2 gap-3 text-[11px] text-muted-foreground xs:grid-cols-3 sm:grid-cols-6">
+                    <dl className="numeral-type grid w-full flex-1 grid-cols-2 gap-3 text-[11px] text-muted-foreground sm:grid-cols-6">
                       <div>
                         <dt className="text-[9px] uppercase tracking-widest">Wins</dt>
                         <dd className="text-base text-gold">{row.wins}</dd>
