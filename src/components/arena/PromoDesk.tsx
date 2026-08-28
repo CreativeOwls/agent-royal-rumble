@@ -23,6 +23,7 @@ interface Props {
   weights: Weights;
   onWeightsChange: (value: Weights) => void;
   running: boolean;
+  finished: boolean;
   onStart: () => void;
   onReset: () => void;
 }
@@ -33,6 +34,7 @@ export default function PromoDesk({
   weights,
   onWeightsChange,
   running,
+  finished,
   onStart,
   onReset,
 }: Props) {
@@ -84,8 +86,17 @@ export default function PromoDesk({
         <Button onClick={onStart} disabled={!canStart} className="flex-1 bg-gold text-black hover:bg-gold/90">
           {running ? "Match in progress…" : "Ring the bell"}
         </Button>
-        <Button variant="outline" onClick={onReset} disabled={running} className="border-arena-panel-edge">
-          Clear
+        <Button
+          variant="outline"
+          onClick={onReset}
+          disabled={running}
+          className={
+            finished
+              ? "border-gold/60 text-gold hover:bg-gold/10 hover:text-gold"
+              : "border-arena-panel-edge"
+          }
+        >
+          {finished ? "Run next match" : "Clear"}
         </Button>
       </div>
         </div>

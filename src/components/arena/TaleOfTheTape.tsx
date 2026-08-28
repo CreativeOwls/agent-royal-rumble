@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+
 import { competitorById, ROSTER } from "@/lib/roster";
 import type { MatchFinal } from "@/lib/match/types";
 import { cn } from "@/lib/utils";
@@ -89,6 +91,16 @@ export default function TaleOfTheTape({ final, fatal }: Props) {
                 );
               })}
           </ol>
+
+          <div className="mt-4 flex items-center justify-between gap-2">
+            <Link
+              to="/match/$matchId"
+              params={{ matchId: final.matchId }}
+              className="text-[11px] text-gold underline-offset-4 hover:underline"
+            >
+              View this match on the leaderboard →
+            </Link>
+          </div>
 
           <p className="mt-4 text-[10px] text-muted-foreground">
             Roster: {ROSTER.map((c) => c.ringName).join(" · ")}
