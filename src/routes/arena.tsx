@@ -92,10 +92,12 @@ function ArenaPage() {
             weights={weights}
             onWeightsChange={setWeights}
             running={state.running}
+            finished={state.final !== null || state.fatal !== null}
             onStart={() => void start(task, weights)}
             onReset={() => {
               reset();
               setTask("");
+              requestAnimationFrame(() => document.getElementById("task")?.focus());
             }}
           />
         </section>
