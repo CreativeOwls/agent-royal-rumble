@@ -90,26 +90,6 @@ export default function TaleOfTheTape({ final, fatal }: Props) {
               })}
           </ol>
 
-          {final.bracket ? (
-            <div className="mt-5">
-              <h3 className="display-type text-[11px] tracking-widest text-muted-foreground">Bracket</h3>
-              <div className="mt-2 space-y-1.5">
-                {final.bracket.map((round) => (
-                  <div
-                    key={round.label}
-                    className="flex items-center justify-between rounded-md border border-arena-panel-edge px-3 py-2 text-[11px]"
-                  >
-                    <span className="text-muted-foreground">{round.label}</span>
-                    <span className="text-foreground">
-                      {nameOf(round.a)} vs {nameOf(round.b)}
-                    </span>
-                    <span className="text-gold">{nameOf(round.winner)}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : null}
-
           <p className="mt-4 text-[10px] text-muted-foreground">
             Roster: {ROSTER.map((c) => c.ringName).join(" · ")}
           </p>

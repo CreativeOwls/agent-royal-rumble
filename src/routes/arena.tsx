@@ -8,7 +8,7 @@ import GoogleIcon from "@/components/GoogleIcon";
 import { useAuthSession } from "@/hooks/useAuthSession";
 import { useMatchStream } from "@/hooks/useMatchStream";
 import { lovable } from "@/integrations/lovable/index";
-import { DEFAULT_WEIGHTS, type MatchMode, type Weights } from "@/lib/match/types";
+import { DEFAULT_WEIGHTS, type Weights } from "@/lib/match/types";
 
 export const Route = createFileRoute("/arena")({
   head: () => ({
@@ -37,7 +37,6 @@ function ArenaPage() {
   const { state, start, reset } = useMatchStream();
   const [task, setTask] = useState("");
   const [weights, setWeights] = useState<Weights>(DEFAULT_WEIGHTS);
-  const [mode, setMode] = useState<MatchMode>("single");
 
   if (loading) {
     return (
@@ -87,10 +86,8 @@ function ArenaPage() {
             onTaskChange={setTask}
             weights={weights}
             onWeightsChange={setWeights}
-            mode={mode}
-            onModeChange={setMode}
             running={state.running}
-            onStart={() => void start(task, weights, mode)}
+            onStart={() => void start(task, weights)}
             onReset={() => {
               reset();
               setTask("");

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Textarea } from "@/components/ui/textarea";
-import { DEFAULT_WEIGHTS, type MatchMode, type Weights } from "@/lib/match/types";
+import { DEFAULT_WEIGHTS, type Weights } from "@/lib/match/types";
 import { cn } from "@/lib/utils";
 
 const SAMPLE_TASKS = [
@@ -23,8 +23,6 @@ interface Props {
   onTaskChange: (value: string) => void;
   weights: Weights;
   onWeightsChange: (value: Weights) => void;
-  mode: MatchMode;
-  onModeChange: (value: MatchMode) => void;
   running: boolean;
   onStart: () => void;
   onReset: () => void;
@@ -35,8 +33,6 @@ export default function PromoDesk({
   onTaskChange,
   weights,
   onWeightsChange,
-  mode,
-  onModeChange,
   running,
   onStart,
   onReset,
@@ -80,30 +76,6 @@ export default function PromoDesk({
               className="rounded-full border border-arena-panel-edge px-2.5 py-1 text-[10px] text-muted-foreground transition-colors hover:border-gold hover:text-gold"
             >
               {sample.slice(0, 38)}…
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-5">
-        <span className="display-type text-[11px] tracking-widest text-muted-foreground">Match Type</span>
-        <div className="mt-2 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Match type">
-          {(["single", "tournament"] as const).map((option) => (
-            <button
-              key={option}
-              type="button"
-              role="radio"
-              aria-checked={mode === option}
-              disabled={running}
-              onClick={() => onModeChange(option)}
-              className={cn(
-                "rounded-md border px-3 py-2 text-xs transition-colors",
-                mode === option
-                  ? "border-gold bg-gold/10 text-gold"
-                  : "border-arena-panel-edge text-muted-foreground hover:text-foreground",
-              )}
-            >
-              {option === "single" ? "Royal Rumble" : "Bracket Tournament"}
             </button>
           ))}
         </div>
