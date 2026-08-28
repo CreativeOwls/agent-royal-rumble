@@ -45,7 +45,7 @@ function Index() {
   };
 
   return (
-    <main className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-background px-4">
+    <main className="relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden bg-background px-4 py-10 sm:px-6">
       <ConstellationBackdrop />
 
       <div
