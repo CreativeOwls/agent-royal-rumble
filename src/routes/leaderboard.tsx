@@ -57,6 +57,13 @@ interface CareerRow {
   totalCostUsd: number;
 }
 
+const CAREER_KPIS = [
+  { key: "avgQuality", label: "Quality" },
+  { key: "avgResult", label: "Result" },
+  { key: "avgEfficiency", label: "Efficiency" },
+  { key: "avgCost", label: "Cost" },
+] as const;
+
 function mean(values: number[]) {
   if (values.length === 0) return 0;
   return values.reduce((sum, value) => sum + value, 0) / values.length;
@@ -231,7 +238,7 @@ function LeaderboardPage() {
                       ) : null}
                     </div>
 
-                    <dl className="numeral-type grid w-full flex-1 grid-cols-2 gap-3 text-[11px] text-muted-foreground sm:grid-cols-6">
+                    <dl className="numeral-type grid w-full flex-1 grid-cols-2 gap-3 text-[11px] text-muted-foreground sm:grid-cols-7">
                       <div>
                         <dt className="text-[9px] uppercase tracking-widest">Wins</dt>
                         <dd className="text-base text-gold">{row.wins}</dd>
@@ -248,12 +255,27 @@ function LeaderboardPage() {
                         <dt className="text-[9px] uppercase tracking-widest">Avg overall</dt>
                         <dd className="text-base text-foreground">{row.avgOverall.toFixed(1)}</dd>
                       </div>
-                      <div>
-                        <dt className="text-[9px] uppercase tracking-widest">Q / R / E / C</dt>
-                        <dd className="text-foreground">
-                          {row.avgQuality.toFixed(0)} / {row.avgResult.toFixed(0)} /{" "}
-                          {row.avgEfficiency.toFixed(0)} / {row.avgCost.toFixed(0)}
-                        </dd>
+                      <div className="col-span-full sm:col-span-2">
+                        <dt className="text-[9px] uppercase tracking-widest">KPI averages</dt>
+                        <div className="mt-1.5 space-y-1.5">
+                          {CAREER_KPIS.map((kpi) => {
+                            const value = row[kpi.key];
+                            return (
+                              <div key={kpi.key}>
+                                <div className="flex justify-between text-[10px]">
+                                  <span className="text-muted-foreground">{kpi.label}</span>
+                                  <span className="numeral-type text-foreground">{value.toFixed(0)}</span>
+                                </div>
+                                <div className="kpi-bar mt-1">
+                                  <span
+                                    className="kpi-fill"
+                                    style={{ width: `${Math.max(0, Math.min(100, value))}%` }}
+                                  />
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
                       <div>
                         <dt className="text-[9px] uppercase tracking-widest">Total spend</dt>
