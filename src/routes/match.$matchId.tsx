@@ -189,7 +189,7 @@ function MatchReplay() {
 
                 {entry.outputText ? (
                   <details className="mt-3">
-                    <summary className="cursor-pointer text-[11px] text-muted-foreground hover:text-gold">
+                    <summary className="spice inline-block cursor-pointer rounded-full border border-arena-panel-edge px-3 py-1 text-[11px] text-muted-foreground hover:border-gold hover:text-gold">
                       Read the answer
                     </summary>
                     <pre className="work-stream mt-2 max-h-96 overflow-auto whitespace-pre-wrap p-3">
@@ -197,6 +197,7 @@ function MatchReplay() {
                     </pre>
                   </details>
                 ) : null}
+
               </article>
             );
           })}
