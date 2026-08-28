@@ -83,7 +83,7 @@ function ArenaPage() {
           </h1>
           <span aria-hidden="true" className="header-rule mt-2 w-32" />
         </div>
-        <nav className="flex gap-2 text-xs text-muted-foreground">
+        <nav className="flex shrink-0 gap-2 text-[11px] text-muted-foreground sm:text-xs">
           <Link
             to="/arena"
             className="spice rounded-full border border-arena-panel-edge px-3 py-1.5 hover:border-gold hover:text-gold"
