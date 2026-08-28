@@ -103,7 +103,7 @@ function ArenaPage() {
       <div className="mx-auto flex max-w-7xl flex-col gap-6">
         <section
           aria-label="Arena hero"
-          className="relative overflow-hidden rounded-2xl border border-border bg-background"
+          className="panel-elevated speed-lines relative overflow-hidden rounded-3xl border border-border bg-background"
         >
           <img
             src={ringHeroAsset.url}
@@ -116,11 +116,13 @@ function ArenaPage() {
             <p className="numeral-type text-[0.65rem] uppercase tracking-[0.35em] text-gold">
               DevFest DC 26
             </p>
-            <h2 className="display-type mt-2 text-2xl text-foreground sm:text-4xl">
+            <h2 className="display-type mt-2 text-2xl leading-[1.05] text-foreground sm:text-4xl">
               Four models. One task. One belt.
             </h2>
+            <span aria-hidden="true" className="header-rule mt-3 w-48" />
           </div>
         </section>
+
 
         <section aria-label="Promo desk">
           <PromoDesk
