@@ -9,6 +9,7 @@ import { useAuthSession } from "@/hooks/useAuthSession";
 import { useMatchStream } from "@/hooks/useMatchStream";
 import { lovable } from "@/integrations/lovable/index";
 import { DEFAULT_WEIGHTS, type Weights } from "@/lib/match/types";
+import ringHeroAsset from "@/assets/ring-hero.png.asset.json";
 
 export const Route = createFileRoute("/arena")({
   head: () => ({
@@ -85,6 +86,27 @@ function ArenaPage() {
       </header>
 
       <div className="mx-auto flex max-w-7xl flex-col gap-6">
+        <section
+          aria-label="Arena hero"
+          className="relative overflow-hidden rounded-2xl border border-border bg-background"
+        >
+          <img
+            src={ringHeroAsset.url}
+            alt="DevFest DC 26 wrestling ring rendered in Google brand colors"
+            className="anim-hero h-[220px] w-full object-cover object-center sm:h-[320px] lg:h-[420px]"
+          />
+          <div className="anim-hero-glow pointer-events-none absolute inset-0 bg-gold/10" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+            <p className="numeral-type text-[0.65rem] uppercase tracking-[0.35em] text-gold">
+              DevFest DC 26
+            </p>
+            <h2 className="display-type mt-2 text-2xl text-foreground sm:text-4xl">
+              Four models. One task. One belt.
+            </h2>
+          </div>
+        </section>
+
         <section aria-label="Promo desk">
           <PromoDesk
             task={task}
