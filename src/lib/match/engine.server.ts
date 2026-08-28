@@ -3,14 +3,7 @@ import { GatewayError, runCompetitor } from "./gateway.server";
 import { judgeAnswers } from "./referee.server";
 import { costUsd } from "./rates.server";
 import { efficiencyRaw, normalize, overallScore } from "./scoring";
-import type {
-  BracketRound,
-  MatchEvent,
-  MatchFinal,
-  MatchMode,
-  ScoredEntry,
-  Weights,
-} from "./types";
+import type { MatchEvent, MatchFinal, ScoredEntry, Weights } from "./types";
 
 const SYSTEM_PROMPT =
   "You are competing in a live benchmark against other AI models. Answer the user's task directly, " +
@@ -28,26 +21,9 @@ interface RawRun {
 export interface RunMatchOptions {
   task: string;
   weights: Weights;
-  mode: MatchMode;
   userId: string;
   emit: (event: MatchEvent) => void;
   signal?: AbortSignal | undefined;
-}
-
-function buildBracket(entries: ScoredEntry[]): BracketRound[] {
-  const order = ROSTER.map((c) => entries.find((e) => e.modelId === c.modelId)).filter(
-    (e): e is ScoredEntry => Boolean(e),
-  );
-  if (order.length < 4) return [];
-  const [a, b, c, d] = order as [ScoredEntry, ScoredEntry, ScoredEntry, ScoredEntry];
-  const semi1Winner = a.overall >= b.overall ? a : b;
-  const semi2Winner = c.overall >= d.overall ? c : d;
-  const finalWinner = semi1Winner.overall >= semi2Winner.overall ? semi1Winner : semi2Winner;
-  return [
-    { label: "Semifinal 1", a: a.modelId, b: b.modelId, winner: semi1Winner.modelId },
-    { label: "Semifinal 2", a: c.modelId, b: d.modelId, winner: semi2Winner.modelId },
-    { label: "Final", a: semi1Winner.modelId, b: semi2Winner.modelId, winner: finalWinner.modelId },
-  ];
 }
 
 function exhibitionRuns(): RawRun[] {
@@ -64,12 +40,12 @@ function exhibitionRuns(): RawRun[] {
 }
 
 export async function runMatch(options: RunMatchOptions): Promise<MatchFinal> {
-  const { task, weights, mode, userId, emit, signal } = options;
+  const { task, weights, userId, emit, signal } = options;
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
   const inserted = await supabaseAdmin
     .from("matches")
-    .insert({ task, weights: weights as unknown as Record<string, number>, mode, status: "running", created_by: userId })
+    .insert({ task, weights: weights as unknown as Record<string, number>, mode: "single", status: "running", created_by: userId })
     .select("id")
     .single();
 
@@ -77,7 +53,7 @@ export async function runMatch(options: RunMatchOptions): Promise<MatchFinal> {
     throw new Error(inserted.error?.message ?? "Could not open a match record.");
   }
   const matchId = inserted.data.id;
-  emit({ type: "start", matchId, task, mode });
+  emit({ type: "start", matchId, task });
 
   for (const competitor of ROSTER) emit({ type: "state", modelId: competitor.modelId, state: "entrance" });
 
@@ -228,10 +204,8 @@ export async function runMatch(options: RunMatchOptions): Promise<MatchFinal> {
     };
   });
 
-  const bracket = mode === "tournament" ? buildBracket(entries) : null;
-  const bracketWinner = bracket?.[2]?.winner ?? null;
   const topEntry = [...entries].sort((a, b) => b.overall - a.overall)[0];
-  const winnerModel = bracketWinner ?? (topEntry && topEntry.overall > 0 ? topEntry.modelId : null);
+  const winnerModel = topEntry && topEntry.overall > 0 ? topEntry.modelId : null;
 
   await supabaseAdmin
     .from("matches")
@@ -265,13 +239,11 @@ export async function runMatch(options: RunMatchOptions): Promise<MatchFinal> {
   const payload: MatchFinal = {
     matchId,
     task,
-    mode,
     weights,
     winnerModel,
     refereeNotes: notes,
     exhibition,
     entries,
-    bracket,
   };
   emit({ type: "final", payload });
   return payload;

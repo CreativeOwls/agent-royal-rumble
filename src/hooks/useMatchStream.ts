@@ -7,7 +7,6 @@ import type {
   FighterState,
   MatchEvent,
   MatchFinal,
-  MatchMode,
   Weights,
 } from "@/lib/match/types";
 
@@ -101,7 +100,7 @@ export function useMatchStream() {
   }, []);
 
   const start = useCallback(
-    async (task: string, weights: Weights, mode: MatchMode) => {
+    async (task: string, weights: Weights) => {
       abortRef.current?.abort();
       const controller = new AbortController();
       abortRef.current = controller;
@@ -120,7 +119,7 @@ export function useMatchStream() {
         response = await fetch("/api/match", {
           method: "POST",
           headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
-          body: JSON.stringify({ task, weights, mode }),
+          body: JSON.stringify({ task, weights }),
           signal: controller.signal,
         });
       } catch (error) {

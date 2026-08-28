@@ -8,7 +8,7 @@ import GoogleIcon from "@/components/GoogleIcon";
 import { useAuthSession } from "@/hooks/useAuthSession";
 import { useMatchStream } from "@/hooks/useMatchStream";
 import { lovable } from "@/integrations/lovable/index";
-import { DEFAULT_WEIGHTS, type MatchMode, type Weights } from "@/lib/match/types";
+import { DEFAULT_WEIGHTS, type Weights } from "@/lib/match/types";
 
 export const Route = createFileRoute("/arena")({
   head: () => ({
@@ -37,7 +37,6 @@ function ArenaPage() {
   const { state, start, reset } = useMatchStream();
   const [task, setTask] = useState("");
   const [weights, setWeights] = useState<Weights>(DEFAULT_WEIGHTS);
-  const [mode, setMode] = useState<MatchMode>("single");
 
   if (loading) {
     return (
@@ -75,9 +74,14 @@ function ArenaPage() {
     <main className="min-h-screen bg-arena-floor px-4 py-8">
       <header className="mx-auto mb-6 flex max-w-7xl items-baseline justify-between">
         <h1 className="display-type text-xl text-foreground sm:text-2xl">Agent Royal Rumble — Arena</h1>
-        <Link to="/" className="text-xs text-muted-foreground underline-offset-4 hover:underline">
-          Home
-        </Link>
+        <nav className="flex gap-4 text-xs text-muted-foreground">
+          <Link to="/leaderboard" className="underline-offset-4 hover:text-gold hover:underline">
+            Leaderboard
+          </Link>
+          <Link to="/" className="underline-offset-4 hover:underline">
+            Home
+          </Link>
+        </nav>
       </header>
 
       <div className="mx-auto flex max-w-7xl flex-col gap-6">
@@ -87,10 +91,8 @@ function ArenaPage() {
             onTaskChange={setTask}
             weights={weights}
             onWeightsChange={setWeights}
-            mode={mode}
-            onModeChange={setMode}
             running={state.running}
-            onStart={() => void start(task, weights, mode)}
+            onStart={() => void start(task, weights)}
             onReset={() => {
               reset();
               setTask("");

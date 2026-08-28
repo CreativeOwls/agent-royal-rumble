@@ -7,7 +7,6 @@ import type { MatchEvent } from "@/lib/match/types";
 
 const bodySchema = z.object({
   task: z.string().trim().min(3).max(4000),
-  mode: z.enum(["single", "tournament"]),
   weights: z.object({
     quality: z.number().min(0).max(100),
     result: z.number().min(0).max(100),
@@ -62,7 +61,6 @@ export const Route = createFileRoute("/api/match")({
               await runMatch({
                 task: parsed.data.task,
                 weights: parsed.data.weights,
-                mode: parsed.data.mode,
                 userId,
                 emit: send,
               });

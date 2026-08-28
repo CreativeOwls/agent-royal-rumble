@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ArenaRouteImport } from './routes/arena'
+import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as ApiMatchRouteImport } from './routes/api/match'
+import { Route as MatchMatchIdRouteImport } from './routes/match.$matchId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -23,40 +25,64 @@ const ArenaRoute = ArenaRouteImport.update({
   path: '/arena',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LeaderboardRoute = LeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiMatchRoute = ApiMatchRouteImport.update({
   id: '/api/match',
   path: '/api/match',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MatchMatchIdRoute = MatchMatchIdRouteImport.update({
+  id: '/match/$matchId',
+  path: '/match/$matchId',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/arena': typeof ArenaRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/api/match': typeof ApiMatchRoute
+  '/match/$matchId': typeof MatchMatchIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/arena': typeof ArenaRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/api/match': typeof ApiMatchRoute
+  '/match/$matchId': typeof MatchMatchIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/arena': typeof ArenaRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/api/match': typeof ApiMatchRoute
+  '/match/$matchId': typeof MatchMatchIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/arena' | '/api/match'
+  fullPaths: '/' | '/arena' | '/leaderboard' | '/api/match' | '/match/$matchId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/arena' | '/api/match'
-  id: '__root__' | '/' | '/arena' | '/api/match'
+  to: '/' | '/arena' | '/leaderboard' | '/api/match' | '/match/$matchId'
+  id:
+    | '__root__'
+    | '/'
+    | '/arena'
+    | '/leaderboard'
+    | '/api/match'
+    | '/match/$matchId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ArenaRoute: typeof ArenaRoute
+  LeaderboardRoute: typeof LeaderboardRoute
   ApiMatchRoute: typeof ApiMatchRoute
+  MatchMatchIdRoute: typeof MatchMatchIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,11 +101,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArenaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/leaderboard': {
+      id: '/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof LeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/match': {
       id: '/api/match'
       path: '/api/match'
       fullPath: '/api/match'
       preLoaderRoute: typeof ApiMatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/match/$matchId': {
+      id: '/match/$matchId'
+      path: '/match/$matchId'
+      fullPath: '/match/$matchId'
+      preLoaderRoute: typeof MatchMatchIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -88,7 +128,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ArenaRoute: ArenaRoute,
+  LeaderboardRoute: LeaderboardRoute,
   ApiMatchRoute: ApiMatchRoute,
+  MatchMatchIdRoute: MatchMatchIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
