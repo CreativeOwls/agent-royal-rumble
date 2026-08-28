@@ -64,7 +64,7 @@ export interface RunOptions {
   systemPrompt: string;
   task: string;
   onToken: (text: string) => void;
-  signal?: AbortSignal;
+  signal?: AbortSignal | undefined;
 }
 
 /** Runs one competitor for real, streaming its output tokens through `onToken`. */

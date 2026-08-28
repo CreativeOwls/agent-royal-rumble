@@ -31,7 +31,7 @@ export interface RunMatchOptions {
   mode: MatchMode;
   userId: string;
   emit: (event: MatchEvent) => void;
-  signal?: AbortSignal;
+  signal?: AbortSignal | undefined;
 }
 
 function buildBracket(entries: ScoredEntry[]): BracketRound[] {
@@ -69,7 +69,7 @@ export async function runMatch(options: RunMatchOptions): Promise<MatchFinal> {
 
   const inserted = await supabaseAdmin
     .from("matches")
-    .insert({ task, weights, mode, status: "running", created_by: userId })
+    .insert({ task, weights: weights as unknown as Record<string, number>, mode, status: "running", created_by: userId })
     .select("id")
     .single();
 
