@@ -283,8 +283,8 @@ function LeaderboardPage() {
           )}
         </section>
 
-        <section aria-labelledby="recent-heading" className="space-y-3">
-          <h2 id="recent-heading" className="display-type text-sm text-foreground">
+        <section aria-labelledby="recent-heading" className="space-y-4">
+          <h2 id="recent-heading" className="display-type text-sm tracking-widest text-foreground">
             Recent Prompts &amp; Their Champions
           </h2>
 
@@ -297,7 +297,7 @@ function LeaderboardPage() {
             </p>
           ) : null}
 
-          <ul className="grid gap-3 md:grid-cols-2">
+          <ul className="grid gap-4 md:grid-cols-2">
             {recent.map((match) => {
               const champion = match.winner_model ? competitorById(match.winner_model) : undefined;
               return (
@@ -305,9 +305,10 @@ function LeaderboardPage() {
                   <Link
                     to="/match/$matchId"
                     params={{ matchId: match.id }}
-                    className="flex h-full gap-4 rounded-xl border border-arena-panel-edge bg-arena-panel/60 p-4 transition-colors hover:border-gold"
+                    className="spice spice-accent panel-elevated flex h-full gap-4 rounded-2xl border border-arena-panel-edge bg-arena-panel/60 p-4 hover:border-gold"
                     style={
                       champion
+
                         ? ({
                             "--accent": `var(${champion.accentVar})`,
                             "--accent-soft": `var(${champion.accentSoftVar})`,
