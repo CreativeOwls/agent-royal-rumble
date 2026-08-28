@@ -1,4 +1,6 @@
+import ringAsset from "@/assets/ring.png.asset.json";
 import FighterFigure from "./FighterFigure";
+
 import WorkStream from "./WorkStream";
 import { ROSTER } from "@/lib/roster";
 import type { FighterLive } from "@/hooks/useMatchStream";
