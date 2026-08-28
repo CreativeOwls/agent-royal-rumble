@@ -67,11 +67,11 @@ export function ConstellationBackdrop() {
 
       // links
       for (let i = 0; i < dots.length; i++) {
-        const a = dots[i];
+        const a = dots[i]!;
         const ax = a.x + px;
         const ay = a.y + py;
         for (let j = i + 1; j < dots.length; j++) {
-          const b = dots[j];
+          const b = dots[j]!;
           const bx = b.x + px;
           const by = b.y + py;
           const dx = ax - bx;
