@@ -28,17 +28,25 @@ export default function WrestlingRing({ fighters, judging, winnerModel }: Props)
       <div
         className="relative mt-3 overflow-hidden rounded-2xl border border-arena-panel-edge p-4 sm:p-6"
         style={{
-          backgroundImage:
-            "var(--circuit-trace), radial-gradient(ellipse at 50% 30%, var(--gold-soft), transparent 60%)",
           backgroundColor: "var(--arena-floor)",
           boxShadow: "var(--shadow-ring)",
         }}
       >
+        <img
+          src={ringAsset.url}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-35"
+        />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-4 rounded-xl border-2 border-dashed"
-          style={{ borderColor: "color-mix(in oklab, var(--gold) 35%, transparent)" }}
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage:
+              "var(--circuit-trace), radial-gradient(ellipse at 50% 35%, var(--gold-soft), transparent 65%), linear-gradient(180deg, oklch(0.09 0.01 265 / 55%), oklch(0.09 0.01 265 / 80%))",
+          }}
         />
+
 
         <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-2">
           {ROSTER.map((competitor) => {
