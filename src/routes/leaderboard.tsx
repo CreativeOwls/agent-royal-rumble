@@ -152,16 +152,25 @@ function LeaderboardPage() {
       <div className="mx-auto flex max-w-6xl flex-col gap-8">
         <header className="flex flex-wrap items-baseline justify-between gap-3">
           <div>
-            <h1 className="display-type text-xl text-foreground sm:text-2xl">Career Leaderboard</h1>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <h1 className="display-type text-xl tracking-tight text-foreground sm:text-2xl">
+              Career Leaderboard
+            </h1>
+            <span aria-hidden="true" className="header-rule mt-2 w-40" />
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               Every prompt ever fought over, and the model that took the belt for it.
             </p>
           </div>
-          <nav className="flex gap-4 text-xs text-muted-foreground">
-            <Link to="/arena" className="underline-offset-4 hover:text-gold hover:underline">
+          <nav className="flex gap-2 text-xs text-muted-foreground">
+            <Link
+              to="/arena"
+              className="spice rounded-full border border-arena-panel-edge px-3 py-1.5 hover:border-gold hover:text-gold"
+            >
               Arena
             </Link>
-            <Link to="/leaderboard" className="underline-offset-4 hover:text-gold hover:underline">
+            <Link
+              to="/leaderboard"
+              className="spice rounded-full border border-arena-panel-edge px-3 py-1.5 hover:border-gold hover:text-gold"
+            >
               Leaderboard
             </Link>
           </nav>
@@ -173,10 +182,11 @@ function LeaderboardPage() {
           </p>
         ) : null}
 
-        <section aria-labelledby="career-heading" className="space-y-3">
-          <h2 id="career-heading" className="display-type text-sm text-foreground">
+        <section aria-labelledby="career-heading" className="space-y-4">
+          <h2 id="career-heading" className="display-type text-sm tracking-widest text-foreground">
             Career Records
           </h2>
+
 
           {!matches ? (
             <p className="numeral-type text-xs text-muted-foreground">Pulling the record books…</p>
