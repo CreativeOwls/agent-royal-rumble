@@ -76,7 +76,7 @@ export default function PromoDesk({
               key={sample}
               type="button"
               onClick={() => onTaskChange(sample)}
-              className="rounded-full border border-arena-panel-edge px-2.5 py-1 text-[10px] text-muted-foreground transition-colors hover:border-gold hover:text-gold"
+              className="spice rounded-full border border-arena-panel-edge px-2.5 py-1 text-[10px] text-muted-foreground hover:border-gold hover:text-gold"
             >
               {sample.slice(0, 38)}…
             </button>
@@ -84,9 +84,13 @@ export default function PromoDesk({
         </div>
       </div>
 
-      <div className="mt-5 flex gap-2">
-        <Button onClick={onStart} disabled={!canStart} className="flex-1 bg-gold text-black hover:bg-gold/90">
-          {running ? "Match in progress…" : "Ring the bell"}
+      <div className="mt-6 flex gap-3">
+        <Button
+          onClick={onStart}
+          disabled={!canStart}
+          className="spice bell-button gold-elevated flex-1 bg-gold text-background hover:bg-gold/90"
+        >
+          {running ? "Match in progress…" : "🔔 Ring the Bell"}
         </Button>
         <Button
           variant="outline"
@@ -94,13 +98,14 @@ export default function PromoDesk({
           disabled={running}
           className={
             finished
-              ? "border-gold/60 text-gold hover:bg-gold/10 hover:text-gold"
-              : "border-arena-panel-edge"
+              ? "spice gold-elevated border-gold/60 text-gold hover:bg-gold/10 hover:text-gold"
+              : "spice border-arena-panel-edge"
           }
         >
           {finished ? "Run next match" : "Clear"}
         </Button>
       </div>
+
         </div>
 
         <fieldset className="rounded-lg border border-arena-panel-edge/60 p-4">
