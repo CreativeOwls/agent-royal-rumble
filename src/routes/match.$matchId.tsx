@@ -1,14 +1,21 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
+import { getRequestURL } from "@tanstack/react-start/server";
 
 import FighterFigure from "@/components/arena/FighterFigure";
 import { competitorById } from "@/lib/roster";
 import { getPublicMatch, type PublicMatch } from "@/lib/match/public.functions";
 
+const getSiteOrigin = createServerFn({ method: "GET" }).handler(async () => getRequestURL().origin);
+
 export const Route = createFileRoute("/match/$matchId")({
   loader: async ({ params }) => {
-    const match = await getPublicMatch({ data: { matchId: params.matchId } });
+    const [match, origin] = await Promise.all([
+      getPublicMatch({ data: { matchId: params.matchId } }),
+      getSiteOrigin(),
+    ]);
     if (!match) throw notFound();
-    return { match };
+    return { match, origin };
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
@@ -16,7 +23,7 @@ export const Route = createFileRoute("/match/$matchId")({
         meta: [{ title: "Match unavailable — Agent Royal Rumble" }, { name: "robots", content: "noindex" }],
       };
     }
-    const { match } = loaderData;
+    const { match, origin } = loaderData;
     const champion = match.winnerModel ? competitorById(match.winnerModel) : undefined;
     const title = champion
       ? `${champion.ringName} took the belt — Agent Royal Rumble`
@@ -34,8 +41,8 @@ export const Route = createFileRoute("/match/$matchId")({
         { name: "twitter:card", content: "summary_large_image" },
         ...(champion
           ? [
-              { property: "og:image", content: champion.image },
-              { name: "twitter:image", content: champion.image },
+              { property: "og:image", content: new URL(champion.image, origin).toString() },
+              { name: "twitter:image", content: new URL(champion.image, origin).toString() },
             ]
           : []),
       ],
@@ -62,7 +69,7 @@ function formatDate(iso: string) {
 }
 
 function MatchReplay() {
-  const { match } = Route.useLoaderData() as { match: PublicMatch };
+  const { match } = Route.useLoaderData() as { match: PublicMatch; origin: string };
   const champion = match.winnerModel ? competitorById(match.winnerModel) : undefined;
   const ranked = [...match.entries].sort((a, b) => b.overall - a.overall);
 
