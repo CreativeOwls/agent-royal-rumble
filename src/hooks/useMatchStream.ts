@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 
 import { supabase } from "@/integrations/supabase/client";
+import { playBell } from "@/lib/bell";
 import { ROSTER } from "@/lib/roster";
 import type {
   EntryMetrics,
