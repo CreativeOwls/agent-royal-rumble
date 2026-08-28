@@ -9,6 +9,7 @@ import { useAuthSession } from "@/hooks/useAuthSession";
 import { useMatchStream } from "@/hooks/useMatchStream";
 import { lovable } from "@/integrations/lovable/index";
 import { DEFAULT_WEIGHTS, type Weights } from "@/lib/match/types";
+import ringHeroAsset from "@/assets/ring-hero.png.asset.json";
 
 export const Route = createFileRoute("/arena")({
   head: () => ({
