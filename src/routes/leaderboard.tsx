@@ -1,8 +1,7 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 
 import FighterFigure from "@/components/arena/FighterFigure";
-import { useAuthSession } from "@/hooks/useAuthSession";
 import { supabase } from "@/integrations/supabase/client";
 import { ROSTER, competitorById } from "@/lib/roster";
 
@@ -93,18 +92,11 @@ function formatDate(iso: string) {
 }
 
 function LeaderboardPage() {
-  const { session, loading } = useAuthSession();
-  const navigate = useNavigate();
   const [matches, setMatches] = useState<MatchRow[] | null>(null);
   const [entries, setEntries] = useState<EntryRow[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!loading && !session) void navigate({ to: "/" });
-  }, [loading, session, navigate]);
-
-  useEffect(() => {
-    if (!session) return;
     let active = true;
 
     void (async () => {
@@ -131,21 +123,13 @@ function LeaderboardPage() {
     return () => {
       active = false;
     };
-  }, [session]);
+  }, []);
 
   const career = useMemo(
     () => (matches && entries ? buildCareer(matches, entries) : []),
     [matches, entries],
   );
   const recent = useMemo(() => (matches ?? []).slice(0, 12), [matches]);
-
-  if (loading || !session) {
-    return (
-      <main className="flex min-h-screen items-center justify-center bg-arena-floor">
-        <p className="numeral-type text-xs text-muted-foreground">Checking your ringside pass…</p>
-      </main>
-    );
-  }
 
   return (
     <main className="min-h-screen bg-arena-floor px-3 py-6 sm:px-4 sm:py-8">

@@ -4,10 +4,7 @@ import { useState } from "react";
 import PromoDesk from "@/components/arena/PromoDesk";
 import TaleOfTheTape from "@/components/arena/TaleOfTheTape";
 import WrestlingRing from "@/components/arena/WrestlingRing";
-import GoogleIcon from "@/components/GoogleIcon";
-import { useAuthSession } from "@/hooks/useAuthSession";
 import { useMatchStream } from "@/hooks/useMatchStream";
-import { lovable } from "@/integrations/lovable/index";
 import { DEFAULT_WEIGHTS, type Weights } from "@/lib/match/types";
 import ringHeroAsset from "@/assets/ring-hero.png.asset.json";
 
@@ -34,45 +31,9 @@ export const Route = createFileRoute("/arena")({
 });
 
 function ArenaPage() {
-  const { session, loading } = useAuthSession();
   const { state, start, reset } = useMatchStream();
   const [task, setTask] = useState("");
   const [weights, setWeights] = useState<Weights>(DEFAULT_WEIGHTS);
-
-  if (loading) {
-    return (
-      <main className="flex min-h-screen items-center justify-center bg-arena-floor">
-        <p className="numeral-type text-xs text-muted-foreground">Checking your ringside pass…</p>
-      </main>
-    );
-  }
-
-  if (!session) {
-    return (
-      <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-arena-floor px-4 text-center">
-        <h1 className="display-type text-3xl text-foreground">Ringside pass required</h1>
-        <p className="max-w-md text-sm text-muted-foreground">
-          Sign in to start a match. Results are saved to your account and shareable afterwards.
-        </p>
-        <button
-          type="button"
-          onClick={() =>
-            lovable.auth.signInWithOAuth("google", { redirect_uri: `${window.location.origin}/arena` })
-          }
-          className="spice inline-flex items-center gap-3 rounded-full bg-card px-6 py-3 text-sm font-medium text-card-foreground shadow-lg"
-        >
-          <GoogleIcon className="h-5 w-5" />
-          Sign in with Google
-        </button>
-        <Link
-          to="/"
-          className="spice rounded-full px-3 py-1 text-xs text-muted-foreground hover:text-gold"
-        >
-          Back to the marquee
-        </Link>
-      </main>
-    );
-  }
 
   return (
     <main className="min-h-screen bg-arena-floor px-3 py-6 sm:px-4 sm:py-8">
