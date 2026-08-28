@@ -1,5 +1,3 @@
-export type MatchMode = "single" | "tournament";
-
 export type FighterState =
   | "waiting"
   | "entrance"
@@ -40,27 +38,18 @@ export interface ScoredEntry extends EntryMetrics {
   errorText: string | null;
 }
 
-export interface BracketRound {
-  label: string;
-  a: string;
-  b: string;
-  winner: string | null;
-}
-
 export interface MatchFinal {
   matchId: string;
   task: string;
-  mode: MatchMode;
   weights: Weights;
   winnerModel: string | null;
   refereeNotes: string;
   exhibition: boolean;
   entries: ScoredEntry[];
-  bracket: BracketRound[] | null;
 }
 
 export type MatchEvent =
-  | { type: "start"; matchId: string; task: string; mode: MatchMode }
+  | { type: "start"; matchId: string; task: string }
   | { type: "state"; modelId: string; state: FighterState }
   | { type: "token"; modelId: string; text: string }
   | { type: "metrics"; modelId: string; metrics: EntryMetrics }
