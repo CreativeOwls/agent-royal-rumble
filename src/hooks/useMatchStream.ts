@@ -107,7 +107,9 @@ export function useMatchStream() {
       const controller = new AbortController();
       abortRef.current = controller;
 
+      playBell();
       setState({ ...initialState, fighters: blankFighters(), running: true });
+
 
       const { data } = await supabase.auth.getSession();
       const token = data.session?.access_token;
