@@ -46,16 +46,19 @@ export default function PromoDesk({
   return (
     <section
       aria-labelledby="promo-desk-heading"
-      className="rounded-xl border border-arena-panel-edge bg-arena-panel/70 p-5 backdrop-blur"
+      className="rounded-xl border border-arena-panel-edge bg-arena-panel/70 p-5 backdrop-blur sm:p-8"
     >
-      <h2 id="promo-desk-heading" className="display-type text-lg text-foreground">
+      <h2 id="promo-desk-heading" className="display-type text-2xl text-foreground sm:text-3xl">
         Promo Desk
       </h2>
-      <p className="mt-1 text-xs text-muted-foreground">
-        Cut your promo. Four models take the same task; the referee never sees their names.
+      <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+        Cut your promo. Four models take the same task; the referee never sees their names. Set the
+        challenge, tune the judging weights, then ring the bell.
       </p>
 
-      <div className="mt-4 space-y-2">
+      <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+        <div>
+      <div className="space-y-2">
         <Label htmlFor="task" className="display-type text-[11px] tracking-widest text-muted-foreground">
           The Challenge
         </Label>
@@ -82,8 +85,42 @@ export default function PromoDesk({
         </div>
       </div>
 
-      <fieldset className="mt-5">
-        <legend className="display-type text-[11px] tracking-widest text-muted-foreground">
+      <div className="mt-5">
+        <span className="display-type text-[11px] tracking-widest text-muted-foreground">Match Type</span>
+        <div className="mt-2 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Match type">
+          {(["single", "tournament"] as const).map((option) => (
+            <button
+              key={option}
+              type="button"
+              role="radio"
+              aria-checked={mode === option}
+              disabled={running}
+              onClick={() => onModeChange(option)}
+              className={cn(
+                "rounded-md border px-3 py-2 text-xs transition-colors",
+                mode === option
+                  ? "border-gold bg-gold/10 text-gold"
+                  : "border-arena-panel-edge text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {option === "single" ? "Royal Rumble" : "Bracket Tournament"}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-5 flex gap-2">
+        <Button onClick={onStart} disabled={!canStart} className="flex-1 bg-gold text-black hover:bg-gold/90">
+          {running ? "Match in progress…" : "Ring the bell"}
+        </Button>
+        <Button variant="outline" onClick={onReset} disabled={running} className="border-arena-panel-edge">
+          Clear
+        </Button>
+      </div>
+        </div>
+
+        <fieldset className="rounded-lg border border-arena-panel-edge/60 p-4">
+        <legend className="display-type px-1 text-[11px] tracking-widest text-muted-foreground">
           Judging Weights
         </legend>
         <div className="mt-3 space-y-4">
@@ -118,39 +155,7 @@ export default function PromoDesk({
         >
           Reset weights
         </button>
-      </fieldset>
-
-      <div className="mt-5">
-        <span className="display-type text-[11px] tracking-widest text-muted-foreground">Match Type</span>
-        <div className="mt-2 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Match type">
-          {(["single", "tournament"] as const).map((option) => (
-            <button
-              key={option}
-              type="button"
-              role="radio"
-              aria-checked={mode === option}
-              disabled={running}
-              onClick={() => onModeChange(option)}
-              className={cn(
-                "rounded-md border px-3 py-2 text-xs transition-colors",
-                mode === option
-                  ? "border-gold bg-gold/10 text-gold"
-                  : "border-arena-panel-edge text-muted-foreground hover:text-foreground",
-              )}
-            >
-              {option === "single" ? "Royal Rumble" : "Bracket Tournament"}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-5 flex gap-2">
-        <Button onClick={onStart} disabled={!canStart} className="flex-1 bg-gold text-black hover:bg-gold/90">
-          {running ? "Match in progress…" : "Ring the bell"}
-        </Button>
-        <Button variant="outline" onClick={onReset} disabled={running} className="border-arena-panel-edge">
-          Clear
-        </Button>
+        </fieldset>
       </div>
     </section>
   );
