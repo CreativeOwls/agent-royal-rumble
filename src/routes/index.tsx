@@ -34,7 +34,7 @@ function Index() {
   const signIn = async () => {
     setLoading(true);
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+      redirect_uri: `${window.location.origin}/arena`,
     });
     if (result.error) {
       setLoading(false);
