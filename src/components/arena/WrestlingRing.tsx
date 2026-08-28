@@ -3,6 +3,7 @@ import FighterFigure from "./FighterFigure";
 
 import WorkStream from "./WorkStream";
 import { ROSTER } from "@/lib/roster";
+import { cn } from "@/lib/utils";
 import type { FighterLive } from "@/hooks/useMatchStream";
 
 interface Props {
