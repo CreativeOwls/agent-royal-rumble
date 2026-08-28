@@ -59,7 +59,7 @@ function Index() {
         style={{ backgroundImage: "var(--vignette)" }}
       />
 
-      <div className="relative z-10 flex w-full max-w-[95vw] flex-col items-center gap-10">
+      <div className="relative z-10 flex w-full max-w-[1400px] flex-col items-center gap-8 sm:gap-10">
         <Wordmark text="AGENT ROYAL RUMBLE" />
 
         <button
