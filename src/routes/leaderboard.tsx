@@ -159,10 +159,10 @@ function LeaderboardPage() {
           </div>
           <nav className="flex gap-4 text-xs text-muted-foreground">
             <Link to="/arena" className="underline-offset-4 hover:text-gold hover:underline">
-              Back to the Arena
+              Arena
             </Link>
-            <Link to="/" className="underline-offset-4 hover:text-gold hover:underline">
-              Home
+            <Link to="/leaderboard" className="underline-offset-4 hover:text-gold hover:underline">
+              Leaderboard
             </Link>
           </nav>
         </header>
