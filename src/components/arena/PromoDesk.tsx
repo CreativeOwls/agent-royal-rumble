@@ -43,9 +43,9 @@ export default function PromoDesk({
   return (
     <section
       aria-labelledby="promo-desk-heading"
-      className="panel-elevated speed-lines rounded-2xl border border-arena-panel-edge bg-arena-panel/70 p-5 backdrop-blur sm:p-8"
+      className="panel-elevated speed-lines rounded-2xl border border-arena-panel-edge bg-arena-panel/70 p-4 backdrop-blur sm:p-8"
     >
-      <h2 id="promo-desk-heading" className="display-type text-2xl text-foreground sm:text-3xl">
+      <h2 id="promo-desk-heading" className="display-type text-xl text-foreground sm:text-3xl">
         Promo Desk
       </h2>
       <span aria-hidden="true" className="header-rule mt-2 w-40" />
@@ -84,11 +84,11 @@ export default function PromoDesk({
         </div>
       </div>
 
-      <div className="mt-6 flex gap-3">
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row">
         <Button
           onClick={onStart}
           disabled={!canStart}
-          className="spice bell-button gold-elevated flex-1 bg-gold text-background hover:bg-gold/90"
+          className="spice bell-button gold-elevated w-full bg-gold sm:flex-1 text-background hover:bg-gold/90"
         >
           {running ? "Match in progress…" : "🔔 Ring the Bell"}
         </Button>
@@ -97,9 +97,9 @@ export default function PromoDesk({
           onClick={onReset}
           disabled={running}
           className={
-            finished
+            (finished
               ? "spice gold-elevated border-gold/60 text-gold hover:bg-gold/10 hover:text-gold"
-              : "spice border-arena-panel-edge"
+              : "spice border-arena-panel-edge") + " w-full sm:w-auto"
           }
         >
           {finished ? "Run next match" : "Clear"}

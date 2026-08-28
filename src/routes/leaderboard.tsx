@@ -148,11 +148,11 @@ function LeaderboardPage() {
   }
 
   return (
-    <main className="min-h-screen bg-arena-floor px-4 py-8">
+    <main className="min-h-screen bg-arena-floor px-3 py-6 sm:px-4 sm:py-8">
       <div className="mx-auto flex max-w-6xl flex-col gap-8">
-        <header className="flex flex-wrap items-baseline justify-between gap-3">
+        <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:flex-wrap sm:items-baseline sm:justify-between">
           <div>
-            <h1 className="display-type text-xl tracking-tight text-foreground sm:text-2xl">
+            <h1 className="display-type truncate text-base tracking-tight text-foreground sm:text-2xl">
               Career Leaderboard
             </h1>
             <span aria-hidden="true" className="header-rule mt-2 w-40" />
@@ -160,7 +160,7 @@ function LeaderboardPage() {
               Every prompt ever fought over, and the model that took the belt for it.
             </p>
           </div>
-          <nav className="flex gap-2 text-xs text-muted-foreground">
+          <nav className="flex shrink-0 gap-2 text-[11px] text-muted-foreground sm:text-xs">
             <Link
               to="/arena"
               className="spice rounded-full border border-arena-panel-edge px-3 py-1.5 hover:border-gold hover:text-gold"
@@ -247,7 +247,7 @@ function LeaderboardPage() {
                       ) : null}
                     </div>
 
-                    <dl className="numeral-type grid flex-1 grid-cols-3 gap-3 text-[11px] text-muted-foreground sm:grid-cols-6">
+                    <dl className="numeral-type grid w-full flex-1 grid-cols-2 gap-3 text-[11px] text-muted-foreground xs:grid-cols-3 sm:grid-cols-6">
                       <div>
                         <dt className="text-[9px] uppercase tracking-widest">Wins</dt>
                         <dd className="text-base text-gold">{row.wins}</dd>

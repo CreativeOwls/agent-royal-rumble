@@ -74,16 +74,16 @@ function MatchReplay() {
   const ranked = [...match.entries].sort((a, b) => b.overall - a.overall);
 
   return (
-    <main className="min-h-screen bg-arena-floor px-4 py-10">
+    <main className="min-h-screen bg-arena-floor px-3 py-6 sm:px-4 sm:py-10">
       <div className="mx-auto flex max-w-5xl flex-col gap-6">
-        <header className="flex items-baseline justify-between gap-4">
+        <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:flex-wrap sm:items-baseline sm:justify-between sm:gap-4">
           <div>
-            <h1 className="display-type text-xl tracking-tight text-foreground sm:text-2xl">
+            <h1 className="display-type truncate text-base tracking-tight text-foreground sm:text-2xl">
               Match Replay
             </h1>
             <span aria-hidden="true" className="header-rule mt-2 w-32" />
           </div>
-          <nav className="flex gap-2 text-xs text-muted-foreground">
+          <nav className="flex shrink-0 gap-2 text-[11px] text-muted-foreground sm:text-xs">
             <Link
               to="/leaderboard"
               className="spice rounded-full border border-arena-panel-edge px-3 py-1.5 hover:border-gold hover:text-gold"
@@ -110,7 +110,7 @@ function MatchReplay() {
           ) : null}
         </section>
 
-        <section className="anim-belt gold-elevated panel-elevated flex items-center gap-5 rounded-2xl border border-gold/60 bg-gradient-to-r from-gold/15 to-gold/5 p-5 sm:p-6">
+        <section className="anim-belt gold-elevated panel-elevated flex flex-col items-center gap-4 rounded-2xl border border-gold/60 bg-gradient-to-r from-gold/15 to-gold/5 p-4 text-center sm:flex-row sm:gap-5 sm:p-6 sm:text-left">
           {champion ? (
             <div className="relative h-28 w-24 shrink-0">
               <span
@@ -128,7 +128,7 @@ function MatchReplay() {
           ) : null}
           <div>
             <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Belt Holder</p>
-            <p className="display-type mt-2 text-3xl tracking-tight text-gold">
+            <p className="display-type mt-2 text-2xl tracking-tight text-gold sm:text-3xl">
               {champion?.ringName ?? "No decision"}
             </p>
             {champion ? <p className="text-xs text-muted-foreground">“{champion.nickname}”</p> : null}
@@ -157,7 +157,7 @@ function MatchReplay() {
                 }
               >
 
-                <div className="flex items-center gap-4">
+                <div className="flex flex-wrap items-center gap-4">
                   {competitor ? (
                     <FighterFigure
                       competitor={competitor}

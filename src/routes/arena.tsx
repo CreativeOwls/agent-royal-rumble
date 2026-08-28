@@ -75,7 +75,7 @@ function ArenaPage() {
   }
 
   return (
-    <main className="min-h-screen bg-arena-floor px-4 py-8">
+    <main className="min-h-screen bg-arena-floor px-3 py-6 sm:px-4 sm:py-8">
       <header className="mx-auto mb-8 grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:flex-wrap sm:items-baseline sm:justify-between sm:gap-4">
         <div className="min-w-0">
           <h1 className="display-type truncate text-base tracking-tight text-foreground sm:text-2xl">
@@ -108,15 +108,15 @@ function ArenaPage() {
           <img
             src={ringHeroAsset.url}
             alt="DevFest DC 26 wrestling ring rendered in Google brand colors"
-            className="anim-hero h-[220px] w-full object-cover object-center sm:h-[320px] lg:h-[420px]"
+            className="anim-hero h-[160px] w-full object-cover object-center sm:h-[300px] lg:h-[420px]"
           />
           <div className="anim-hero-glow pointer-events-none absolute inset-0 bg-gold/10" />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-8">
             <p className="numeral-type text-[0.65rem] uppercase tracking-[0.35em] text-gold">
               DevFest DC 26
             </p>
-            <h2 className="display-type mt-2 text-2xl leading-[1.05] text-foreground sm:text-4xl">
+            <h2 className="display-type mt-2 text-xl leading-[1.05] text-foreground sm:text-3xl lg:text-4xl">
               Four models. One task. One belt.
             </h2>
             <span aria-hidden="true" className="header-rule mt-3 w-48" />
