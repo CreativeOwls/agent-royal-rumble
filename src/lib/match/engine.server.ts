@@ -21,7 +21,6 @@ interface RawRun {
 export interface RunMatchOptions {
   task: string;
   weights: Weights;
-  userId: string;
   emit: (event: MatchEvent) => void;
   signal?: AbortSignal | undefined;
 }
@@ -40,12 +39,12 @@ function exhibitionRuns(): RawRun[] {
 }
 
 export async function runMatch(options: RunMatchOptions): Promise<MatchFinal> {
-  const { task, weights, userId, emit, signal } = options;
+  const { task, weights, emit, signal } = options;
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
   const inserted = await supabaseAdmin
     .from("matches")
-    .insert({ task, weights: weights as unknown as Record<string, number>, mode: "single", status: "running", created_by: userId })
+    .insert({ task, weights: weights as unknown as Record<string, number>, mode: "single", status: "running" })
     .select("id")
     .single();
 

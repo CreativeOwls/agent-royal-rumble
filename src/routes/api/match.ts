@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
 import { runMatch } from "@/lib/match/engine.server";
@@ -15,31 +14,10 @@ const bodySchema = z.object({
   }),
 });
 
-async function authenticate(request: Request): Promise<string | null> {
-  const header = request.headers.get("Authorization");
-  const token = header?.startsWith("Bearer ") ? header.slice(7) : null;
-  if (!token) return null;
-
-  const url = process.env["SUPABASE_URL"];
-  const key = process.env["SUPABASE_PUBLISHABLE_KEY"];
-  if (!url || !key) return null;
-
-  const client = createClient(url, key, {
-    auth: { persistSession: false, autoRefreshToken: false },
-    global: { headers: { apikey: key } },
-  });
-  const { data, error } = await client.auth.getUser(token);
-  if (error || !data.user) return null;
-  return data.user.id;
-}
-
 export const Route = createFileRoute("/api/match")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const userId = await authenticate(request);
-        if (!userId) return new Response("Unauthorized", { status: 401 });
-
         const parsed = bodySchema.safeParse(await request.json().catch(() => null));
         if (!parsed.success) {
           return new Response(JSON.stringify({ error: "Invalid match request." }), {
@@ -61,7 +39,6 @@ export const Route = createFileRoute("/api/match")({
               await runMatch({
                 task: parsed.data.task,
                 weights: parsed.data.weights,
-                userId,
                 emit: send,
               });
             } catch (error) {

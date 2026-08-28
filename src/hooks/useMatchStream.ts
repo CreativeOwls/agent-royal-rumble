@@ -111,18 +111,11 @@ export function useMatchStream() {
       setState({ ...initialState, fighters: blankFighters(), running: true });
 
 
-      const { data } = await supabase.auth.getSession();
-      const token = data.session?.access_token;
-      if (!token) {
-        setState((prev) => ({ ...prev, running: false, fatal: "Your session expired. Sign in again." }));
-        return;
-      }
-
       let response: Response;
       try {
         response = await fetch("/api/match", {
           method: "POST",
-          headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+          headers: { "content-type": "application/json" },
           body: JSON.stringify({ task, weights }),
           signal: controller.signal,
         });
