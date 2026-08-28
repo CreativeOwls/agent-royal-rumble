@@ -77,20 +77,31 @@ function MatchReplay() {
     <main className="min-h-screen bg-arena-floor px-4 py-10">
       <div className="mx-auto flex max-w-5xl flex-col gap-6">
         <header className="flex items-baseline justify-between gap-4">
-          <h1 className="display-type text-xl text-foreground sm:text-2xl">Match Replay</h1>
-          <nav className="flex gap-4 text-xs text-muted-foreground">
-            <Link to="/leaderboard" className="underline-offset-4 hover:text-gold hover:underline">
+          <div>
+            <h1 className="display-type text-xl tracking-tight text-foreground sm:text-2xl">
+              Match Replay
+            </h1>
+            <span aria-hidden="true" className="header-rule mt-2 w-32" />
+          </div>
+          <nav className="flex gap-2 text-xs text-muted-foreground">
+            <Link
+              to="/leaderboard"
+              className="spice rounded-full border border-arena-panel-edge px-3 py-1.5 hover:border-gold hover:text-gold"
+            >
               Leaderboard
             </Link>
-            <Link to="/arena" className="underline-offset-4 hover:text-gold hover:underline">
+            <Link
+              to="/arena"
+              className="spice rounded-full border border-arena-panel-edge px-3 py-1.5 hover:border-gold hover:text-gold"
+            >
               Arena
             </Link>
           </nav>
         </header>
 
-        <section className="rounded-xl border border-arena-panel-edge bg-arena-panel/70 p-5 backdrop-blur">
+        <section className="panel-elevated rounded-2xl border border-arena-panel-edge bg-arena-panel/70 p-5 backdrop-blur">
           <p className="display-type text-[11px] tracking-widest text-muted-foreground">The Prompt</p>
-          <p className="mt-2 whitespace-pre-wrap text-sm text-foreground">{match.task}</p>
+          <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-foreground">{match.task}</p>
           <p className="numeral-type mt-3 text-[10px] text-muted-foreground">{formatDate(match.createdAt)}</p>
           {match.exhibition ? (
             <p className="mt-3 rounded-md border border-gold/40 bg-gold/10 p-2 text-[11px] text-gold">
@@ -99,28 +110,42 @@ function MatchReplay() {
           ) : null}
         </section>
 
-        <section className="flex items-center gap-5 rounded-xl border border-gold/50 bg-gold/10 p-5">
+        <section className="anim-belt gold-elevated panel-elevated flex items-center gap-5 rounded-2xl border border-gold/60 bg-gradient-to-r from-gold/15 to-gold/5 p-5 sm:p-6">
           {champion ? (
-            <FighterFigure competitor={champion} state="finished" isWinner className="h-28 w-24 shrink-0" />
+            <div className="relative h-28 w-24 shrink-0">
+              <span
+                aria-hidden="true"
+                className="fighter-portal fighter-portal-champion"
+                style={{ "--accent": `var(${champion.accentVar})` } as React.CSSProperties}
+              />
+              <FighterFigure
+                competitor={champion}
+                state="finished"
+                isWinner
+                className="relative h-full w-full"
+              />
+            </div>
           ) : null}
           <div>
-            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Belt Holder</p>
-            <p className="display-type mt-1 text-2xl text-gold">{champion?.ringName ?? "No decision"}</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Belt Holder</p>
+            <p className="display-type mt-2 text-3xl tracking-tight text-gold">
+              {champion?.ringName ?? "No decision"}
+            </p>
             {champion ? <p className="text-xs text-muted-foreground">“{champion.nickname}”</p> : null}
             {match.refereeNotes ? (
-              <p className="mt-3 text-[11px] text-muted-foreground">{match.refereeNotes}</p>
+              <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">{match.refereeNotes}</p>
             ) : null}
           </div>
         </section>
 
-        <section className="space-y-3">
-          <h2 className="display-type text-sm text-foreground">Scorecard &amp; Answers</h2>
+        <section className="space-y-4">
+          <h2 className="display-type text-sm tracking-widest text-foreground">Scorecard &amp; Answers</h2>
           {ranked.map((entry, index) => {
             const competitor = competitorById(entry.modelId);
             return (
               <article
                 key={entry.modelId}
-                className="rounded-xl border border-arena-panel-edge bg-arena-panel/60 p-4"
+                className="panel-elevated rounded-2xl border border-arena-panel-edge bg-arena-panel/60 p-4 sm:p-5"
                 style={
                   competitor
                     ? ({
@@ -131,6 +156,7 @@ function MatchReplay() {
                     : undefined
                 }
               >
+
                 <div className="flex items-center gap-4">
                   {competitor ? (
                     <FighterFigure
