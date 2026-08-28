@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import PromoDesk from "@/components/arena/PromoDesk";
 import TaleOfTheTape from "@/components/arena/TaleOfTheTape";
+import WinnerModal from "@/components/arena/WinnerModal";
 import WrestlingRing from "@/components/arena/WrestlingRing";
 import { useMatchStream } from "@/hooks/useMatchStream";
 import { DEFAULT_WEIGHTS, type Weights } from "@/lib/match/types";
@@ -34,6 +35,16 @@ function ArenaPage() {
   const { state, start, reset } = useMatchStream();
   const [task, setTask] = useState("");
   const [weights, setWeights] = useState<Weights>(DEFAULT_WEIGHTS);
+  const [announced, setAnnounced] = useState<string | null>(null);
+  const dismissedRef = useRef<string | null>(null);
+
+  const final = state.final;
+  useEffect(() => {
+    if (!final) return;
+    if (dismissedRef.current === final.matchId) return;
+    setAnnounced(final.matchId);
+  }, [final]);
+
 
   return (
     <main className="min-h-screen bg-arena-floor px-3 py-6 sm:px-4 sm:py-8">
@@ -114,6 +125,16 @@ function ArenaPage() {
           <TaleOfTheTape final={state.final} fatal={state.fatal} />
         </section>
       </div>
+
+      {final && announced === final.matchId ? (
+        <WinnerModal
+          final={final}
+          onClose={() => {
+            dismissedRef.current = final.matchId;
+            setAnnounced(null);
+          }}
+        />
+      ) : null}
     </main>
   );
 }
