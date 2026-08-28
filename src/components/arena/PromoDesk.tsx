@@ -155,39 +155,7 @@ export default function PromoDesk({
         >
           Reset weights
         </button>
-      </fieldset>
-
-      <div className="mt-5">
-        <span className="display-type text-[11px] tracking-widest text-muted-foreground">Match Type</span>
-        <div className="mt-2 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Match type">
-          {(["single", "tournament"] as const).map((option) => (
-            <button
-              key={option}
-              type="button"
-              role="radio"
-              aria-checked={mode === option}
-              disabled={running}
-              onClick={() => onModeChange(option)}
-              className={cn(
-                "rounded-md border px-3 py-2 text-xs transition-colors",
-                mode === option
-                  ? "border-gold bg-gold/10 text-gold"
-                  : "border-arena-panel-edge text-muted-foreground hover:text-foreground",
-              )}
-            >
-              {option === "single" ? "Royal Rumble" : "Bracket Tournament"}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-5 flex gap-2">
-        <Button onClick={onStart} disabled={!canStart} className="flex-1 bg-gold text-black hover:bg-gold/90">
-          {running ? "Match in progress…" : "Ring the bell"}
-        </Button>
-        <Button variant="outline" onClick={onReset} disabled={running} className="border-arena-panel-edge">
-          Clear
-        </Button>
+        </fieldset>
       </div>
     </section>
   );
