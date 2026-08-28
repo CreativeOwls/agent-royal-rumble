@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import PromoDesk from "@/components/arena/PromoDesk";
 import TaleOfTheTape from "@/components/arena/TaleOfTheTape";
+import WinnerModal from "@/components/arena/WinnerModal";
 import WrestlingRing from "@/components/arena/WrestlingRing";
 import { useMatchStream } from "@/hooks/useMatchStream";
 import { DEFAULT_WEIGHTS, type Weights } from "@/lib/match/types";
