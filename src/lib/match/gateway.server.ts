@@ -99,7 +99,7 @@ export async function runCompetitor(options: RunOptions): Promise<RunResult> {
     method: "POST",
     headers,
     body: JSON.stringify(body),
-    signal: options.signal,
+    signal: options.signal ?? null,
   });
 
   if (!res.ok) throw new GatewayError(res.status, await readErrorMessage(res));
@@ -175,7 +175,7 @@ export async function judgeJson(prompt: string, signal?: AbortSignal): Promise<s
         { role: "user", content: prompt },
       ],
     }),
-    signal,
+    signal: signal ?? null,
   });
 
   if (!res.ok) throw new GatewayError(res.status, await readErrorMessage(res));
