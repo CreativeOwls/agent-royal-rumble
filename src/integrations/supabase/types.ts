@@ -14,7 +14,110 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      match_entries: {
+        Row: {
+          completion_tokens: number | null
+          cost_score: number | null
+          cost_usd: number | null
+          created_at: string
+          efficiency_score: number | null
+          error_text: string | null
+          id: string
+          latency_ms: number | null
+          match_id: string
+          model_id: string
+          output_text: string | null
+          overall_score: number | null
+          prompt_tokens: number | null
+          quality_score: number | null
+          referee_comment: string | null
+          result_score: number | null
+        }
+        Insert: {
+          completion_tokens?: number | null
+          cost_score?: number | null
+          cost_usd?: number | null
+          created_at?: string
+          efficiency_score?: number | null
+          error_text?: string | null
+          id?: string
+          latency_ms?: number | null
+          match_id: string
+          model_id: string
+          output_text?: string | null
+          overall_score?: number | null
+          prompt_tokens?: number | null
+          quality_score?: number | null
+          referee_comment?: string | null
+          result_score?: number | null
+        }
+        Update: {
+          completion_tokens?: number | null
+          cost_score?: number | null
+          cost_usd?: number | null
+          created_at?: string
+          efficiency_score?: number | null
+          error_text?: string | null
+          id?: string
+          latency_ms?: number | null
+          match_id?: string
+          model_id?: string
+          output_text?: string | null
+          overall_score?: number | null
+          prompt_tokens?: number | null
+          quality_score?: number | null
+          referee_comment?: string | null
+          result_score?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "match_entries_match_id_fkey"
+            columns: ["match_id"]
+            isOneToOne: false
+            referencedRelation: "matches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      matches: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          exhibition: boolean
+          id: string
+          mode: string
+          referee_notes: string | null
+          status: string
+          task: string
+          weights: Json
+          winner_model: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          exhibition?: boolean
+          id?: string
+          mode?: string
+          referee_notes?: string | null
+          status?: string
+          task: string
+          weights?: Json
+          winner_model?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          exhibition?: boolean
+          id?: string
+          mode?: string
+          referee_notes?: string | null
+          status?: string
+          task?: string
+          weights?: Json
+          winner_model?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
