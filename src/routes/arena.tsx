@@ -78,7 +78,7 @@ function ArenaPage() {
     <main className="min-h-screen bg-arena-floor px-4 py-8">
       <header className="mx-auto mb-8 grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:flex-wrap sm:items-baseline sm:justify-between sm:gap-4">
         <div className="min-w-0">
-          <h1 className="display-type text-xl tracking-tight text-foreground sm:text-2xl">
+          <h1 className="display-type truncate text-base tracking-tight text-foreground sm:text-2xl">
             Agent Royal Rumble — Arena
           </h1>
           <span aria-hidden="true" className="header-rule mt-2 w-32" />
