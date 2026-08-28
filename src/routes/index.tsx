@@ -45,7 +45,7 @@ function Index() {
   };
 
   return (
-    <main className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-background px-4">
+    <main className="relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden bg-background px-4 py-10 sm:px-6">
       <ConstellationBackdrop />
 
       <div
@@ -59,7 +59,7 @@ function Index() {
         style={{ backgroundImage: "var(--vignette)" }}
       />
 
-      <div className="relative z-10 flex w-full max-w-[95vw] flex-col items-center gap-10">
+      <div className="relative z-10 flex w-full max-w-[1400px] flex-col items-center gap-8 sm:gap-10">
         <Wordmark text="AGENT ROYAL RUMBLE" />
 
         <button
