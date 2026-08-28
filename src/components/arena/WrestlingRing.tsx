@@ -19,16 +19,19 @@ export default function WrestlingRing({ fighters, judging, winnerModel }: Props)
   return (
     <section aria-labelledby="ring-heading" className="relative">
       <div className="flex items-baseline justify-between">
-        <h2 id="ring-heading" className="display-type text-lg text-foreground">
-          The Ring
-        </h2>
+        <div>
+          <h2 id="ring-heading" className="display-type text-lg text-foreground">
+            The Ring
+          </h2>
+          <span aria-hidden="true" className="header-rule mt-1.5 w-28" />
+        </div>
         {judging ? (
           <span className="numeral-type text-[11px] text-gold">referee scoring…</span>
         ) : null}
       </div>
 
       <div
-        className="relative mt-3 overflow-hidden rounded-2xl border border-arena-panel-edge p-4 sm:p-6"
+        className="speed-lines panel-elevated relative mt-4 overflow-hidden rounded-2xl border border-arena-panel-edge p-4 sm:p-6"
         style={{
           backgroundColor: "var(--arena-floor)",
           boxShadow: "var(--shadow-ring)",
@@ -50,15 +53,16 @@ export default function WrestlingRing({ fighters, judging, winnerModel }: Props)
         />
 
 
-        <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="relative grid grid-cols-1 gap-5 sm:grid-cols-2">
           {ROSTER.map((competitor) => {
             const live = fighters[competitor.modelId];
             const state = live?.state ?? "waiting";
             const isWinner = winnerModel === competitor.modelId;
+            const hot = state === "entrance" || state === "fighting";
             return (
               <article
                 key={competitor.modelId}
-                className="fighter-panel p-3"
+                className="fighter-panel panel-elevated relative p-3"
                 style={
                   {
                     "--accent": `var(${competitor.accentVar})`,
@@ -66,9 +70,14 @@ export default function WrestlingRing({ fighters, judging, winnerModel }: Props)
                   } as React.CSSProperties
                 }
               >
-                <header className="fighter-headbar -mx-3 -mt-3 mb-3 flex items-center justify-between px-3 py-1.5">
+                <header
+                  className={cn(
+                    "fighter-headbar -mx-3 -mt-3 mb-3 flex items-center justify-between px-3 py-1.5",
+                    state === "fighting" && "racing-header",
+                  )}
+                >
                   <div>
-                    <p className="display-type text-xs">{competitor.ringName}</p>
+                    <p className="display-type text-xs tracking-wide">{competitor.ringName}</p>
                     <p className="text-[10px] text-muted-foreground">{competitor.nickname}</p>
                   </div>
                   <span className="numeral-type text-[10px] uppercase tracking-widest">
@@ -77,12 +86,22 @@ export default function WrestlingRing({ fighters, judging, winnerModel }: Props)
                 </header>
 
                 <div className="flex gap-3">
-                  <FighterFigure
-                    competitor={competitor}
-                    state={state}
-                    isWinner={isWinner}
-                    className="h-32 w-20 shrink-0"
-                  />
+                  <div className="relative h-32 w-20 shrink-0">
+                    <span
+                      aria-hidden="true"
+                      className={cn(
+                        "fighter-portal",
+                        hot && "fighter-portal-hot",
+                        isWinner && "fighter-portal-champion",
+                      )}
+                    />
+                    <FighterFigure
+                      competitor={competitor}
+                      state={state}
+                      isWinner={isWinner}
+                      className="relative h-full w-full"
+                    />
+                  </div>
                   <div className="min-w-0 flex-1">
                     <WorkStream
                       text={live?.output ?? ""}
@@ -90,6 +109,7 @@ export default function WrestlingRing({ fighters, judging, winnerModel }: Props)
                       error={live?.error ?? null}
                     />
                     <dl className="mt-2 grid grid-cols-3 gap-1 text-[10px] text-muted-foreground">
+
                       <div>
                         <dt>latency</dt>
                         <dd className="numeral-type text-foreground">
