@@ -46,16 +46,19 @@ export default function PromoDesk({
   return (
     <section
       aria-labelledby="promo-desk-heading"
-      className="rounded-xl border border-arena-panel-edge bg-arena-panel/70 p-5 backdrop-blur"
+      className="rounded-xl border border-arena-panel-edge bg-arena-panel/70 p-5 backdrop-blur sm:p-8"
     >
-      <h2 id="promo-desk-heading" className="display-type text-lg text-foreground">
+      <h2 id="promo-desk-heading" className="display-type text-2xl text-foreground sm:text-3xl">
         Promo Desk
       </h2>
-      <p className="mt-1 text-xs text-muted-foreground">
-        Cut your promo. Four models take the same task; the referee never sees their names.
+      <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+        Cut your promo. Four models take the same task; the referee never sees their names. Set the
+        challenge, tune the judging weights, then ring the bell.
       </p>
 
-      <div className="mt-4 space-y-2">
+      <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+        <div>
+      <div className="space-y-2">
         <Label htmlFor="task" className="display-type text-[11px] tracking-widest text-muted-foreground">
           The Challenge
         </Label>
