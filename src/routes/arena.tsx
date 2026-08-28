@@ -35,6 +35,16 @@ function ArenaPage() {
   const { state, start, reset } = useMatchStream();
   const [task, setTask] = useState("");
   const [weights, setWeights] = useState<Weights>(DEFAULT_WEIGHTS);
+  const [announced, setAnnounced] = useState<string | null>(null);
+  const dismissedRef = useRef<string | null>(null);
+
+  const final = state.final;
+  useEffect(() => {
+    if (!final) return;
+    if (dismissedRef.current === final.matchId) return;
+    setAnnounced(final.matchId);
+  }, [final]);
+
 
   return (
     <main className="min-h-screen bg-arena-floor px-3 py-6 sm:px-4 sm:py-8">
