@@ -1,6 +1,11 @@
 // Single source of truth for the Agent Royal Rumble roster.
 // Client-safe: no pricing, no keys. Cost rates live in src/lib/match/rates.server.ts.
 
+import gemini36 from "@/assets/gemini-36.png.asset.json";
+import gemini37 from "@/assets/gemini-37.png.asset.json";
+import gpt55 from "@/assets/gpt-55.png.asset.json";
+import gpt56sol from "@/assets/gpt-56-sol.png.asset.json";
+
 export type Vendor = "openai" | "google";
 
 export type Corner = "top-left" | "top-right" | "bottom-left" | "bottom-right";
@@ -10,7 +15,7 @@ export interface Competitor {
   readonly modelId: string;
   readonly ringName: string;
   readonly nickname: string;
-  /** Public path of the rendered wrestler PNG. */
+  /** CDN url of the rendered wrestler PNG. */
   readonly image: string;
   /** CSS custom property holding this fighter's dominant colour. */
   readonly accentVar: string;
@@ -25,7 +30,7 @@ export const ROSTER: readonly Competitor[] = [
     modelId: "openai/gpt-5.5",
     ringName: "GPT-5.5",
     nickname: "The Frontier",
-    image: "/assets/ChatCPT_5_5_Wrestler_.png",
+    image: gpt55.url,
     accentVar: "--fighter-frontier",
     accentSoftVar: "--fighter-frontier-soft",
     vendor: "openai",
@@ -35,7 +40,7 @@ export const ROSTER: readonly Competitor[] = [
     modelId: "openai/gpt-5.6-sol",
     ringName: "GPT-5.6 Sol",
     nickname: "The Sunbringer",
-    image: "/assets/ChatGPT_Sol_Wrestler_.png",
+    image: gpt56sol.url,
     accentVar: "--fighter-sunbringer",
     accentSoftVar: "--fighter-sunbringer-soft",
     vendor: "openai",
@@ -45,7 +50,7 @@ export const ROSTER: readonly Competitor[] = [
     modelId: "google/gemini-3.7-flash",
     ringName: "Gemini 3.7 Flash",
     nickname: "The Thunderclap",
-    image: "/assets/Geimini_Flash_3_7_Wrestler.png",
+    image: gemini37.url,
     accentVar: "--fighter-thunderclap",
     accentSoftVar: "--fighter-thunderclap-soft",
     vendor: "google",
@@ -55,7 +60,7 @@ export const ROSTER: readonly Competitor[] = [
     modelId: "google/gemini-3.6-flash",
     ringName: "Gemini 3.6 Flash",
     nickname: "The Veteran Blur",
-    image: "/assets/Gamini_Flash_3_6_Wrestler.png",
+    image: gemini36.url,
     accentVar: "--fighter-veteran",
     accentSoftVar: "--fighter-veteran-soft",
     vendor: "google",
