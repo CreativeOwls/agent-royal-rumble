@@ -39,8 +39,9 @@ export function Wordmark({ text }: { text: string }) {
       if (fits) low = mid;
       else high = mid;
     }
-    el.style.fontSize = "";
-    setFontSize(Math.floor(low));
+    const next = Math.floor(low);
+    el.style.fontSize = `${next}px`;
+    setFontSize(next);
   }, []);
 
   useLayoutEffect(() => {
