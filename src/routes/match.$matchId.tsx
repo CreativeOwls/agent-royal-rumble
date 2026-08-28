@@ -1,12 +1,12 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { getRequestURL } from "@tanstack/react-start/server";
+import { getRequestUrl } from "@tanstack/react-start/server";
 
 import FighterFigure from "@/components/arena/FighterFigure";
 import { competitorById } from "@/lib/roster";
 import { getPublicMatch, type PublicMatch } from "@/lib/match/public.functions";
 
-const getSiteOrigin = createServerFn({ method: "GET" }).handler(async () => getRequestURL().origin);
+const getSiteOrigin = createServerFn({ method: "GET" }).handler(async () => getRequestUrl().origin);
 
 export const Route = createFileRoute("/match/$matchId")({
   loader: async ({ params }) => {
