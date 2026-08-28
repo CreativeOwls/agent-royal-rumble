@@ -67,9 +67,27 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
+  /* Near-black, slightly blue-tinted stage */
+  --background: oklch(0.14 0.012 265);
+  --foreground: oklch(0.99 0 0);
+  --card: oklch(0.18 0.014 265);
+
+  /* Muted, desaturated brand accents */
+  --accent-blue: oklch(0.68 0.11 250);
+  --accent-red: oklch(0.65 0.13 25);
+  --accent-yellow: oklch(0.83 0.11 90);
+  --accent-green: oklch(0.72 0.11 150);
+
+  --glow-center: radial-gradient(
+    circle at 50% 45%,
+    color-mix(in oklab, var(--accent-blue) 16%, transparent) 0%,
+    transparent 60%
+  );
+  --vignette: radial-gradient(
+    ellipse at 50% 50%,
+    transparent 35%,
+    color-mix(in oklab, black 55%, transparent) 100%
+  );
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
