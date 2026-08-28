@@ -80,29 +80,35 @@ function ArenaPage() {
         </Link>
       </header>
 
-      <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-[320px_minmax(0,1fr)_340px]">
-        <PromoDesk
-          task={task}
-          onTaskChange={setTask}
-          weights={weights}
-          onWeightsChange={setWeights}
-          mode={mode}
-          onModeChange={setMode}
-          running={state.running}
-          onStart={() => void start(task, weights, mode)}
-          onReset={() => {
-            reset();
-            setTask("");
-          }}
-        />
+      <div className="mx-auto flex max-w-7xl flex-col gap-6">
+        <section aria-label="Promo desk">
+          <PromoDesk
+            task={task}
+            onTaskChange={setTask}
+            weights={weights}
+            onWeightsChange={setWeights}
+            mode={mode}
+            onModeChange={setMode}
+            running={state.running}
+            onStart={() => void start(task, weights, mode)}
+            onReset={() => {
+              reset();
+              setTask("");
+            }}
+          />
+        </section>
 
-        <WrestlingRing
-          fighters={state.fighters}
-          judging={state.judging}
-          winnerModel={state.final?.winnerModel ?? null}
-        />
+        <section aria-label="The ring">
+          <WrestlingRing
+            fighters={state.fighters}
+            judging={state.judging}
+            winnerModel={state.final?.winnerModel ?? null}
+          />
+        </section>
 
-        <TaleOfTheTape final={state.final} fatal={state.fatal} />
+        <section aria-label="Tale of the tape">
+          <TaleOfTheTape final={state.final} fatal={state.fatal} />
+        </section>
       </div>
     </main>
   );
