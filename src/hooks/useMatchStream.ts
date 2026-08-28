@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 
 import { supabase } from "@/integrations/supabase/client";
+import { playBell } from "@/lib/bell";
 import { ROSTER } from "@/lib/roster";
 import type {
   EntryMetrics,
@@ -58,6 +59,7 @@ export function useMatchStream() {
   const abortRef = useRef<AbortController | null>(null);
 
   const apply = useCallback((event: MatchEvent) => {
+    if (event.type === "final" || event.type === "fatal") playBell();
     setState((prev) => {
       const fighters = { ...prev.fighters };
       const patch = (modelId: string, next: Partial<FighterLive>) => {
@@ -105,7 +107,9 @@ export function useMatchStream() {
       const controller = new AbortController();
       abortRef.current = controller;
 
+      playBell();
       setState({ ...initialState, fighters: blankFighters(), running: true });
+
 
       const { data } = await supabase.auth.getSession();
       const token = data.session?.access_token;
