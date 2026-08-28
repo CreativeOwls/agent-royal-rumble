@@ -197,7 +197,11 @@ function LeaderboardPage() {
               return (
                 <article
                   key={row.modelId}
-                  className="rounded-xl border bg-arena-panel/60 p-4"
+                  className={
+                    isChampion
+                      ? "panel-elevated gold-elevated rounded-2xl border bg-gradient-to-r from-gold/10 to-transparent p-4 sm:p-5"
+                      : "panel-elevated rounded-2xl border bg-arena-panel/60 p-4 sm:p-5"
+                  }
                   style={
                     competitor
                       ? ({
@@ -212,13 +216,22 @@ function LeaderboardPage() {
                 >
                   <div className="flex flex-wrap items-center gap-4">
                     {competitor ? (
-                      <FighterFigure
-                        competitor={competitor}
-                        state="finished"
-                        isWinner={isChampion}
-                        className="h-20 w-16 shrink-0"
-                      />
+                      <div className="relative h-20 w-16 shrink-0">
+                        <span
+                          aria-hidden="true"
+                          className={
+                            isChampion ? "fighter-portal fighter-portal-champion" : "fighter-portal"
+                          }
+                        />
+                        <FighterFigure
+                          competitor={competitor}
+                          state="finished"
+                          isWinner={isChampion}
+                          className="relative h-full w-full"
+                        />
+                      </div>
                     ) : null}
+
 
                     <div className="min-w-[9rem] flex-1">
                       <p className="display-type text-sm" style={{ color: "var(--accent)" }}>
