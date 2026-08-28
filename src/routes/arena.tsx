@@ -76,11 +76,11 @@ function ArenaPage() {
       <header className="mx-auto mb-6 flex max-w-7xl items-baseline justify-between">
         <h1 className="display-type text-xl text-foreground sm:text-2xl">Agent Royal Rumble — Arena</h1>
         <nav className="flex gap-4 text-xs text-muted-foreground">
+          <Link to="/arena" className="underline-offset-4 hover:text-gold hover:underline">
+            Arena
+          </Link>
           <Link to="/leaderboard" className="underline-offset-4 hover:text-gold hover:underline">
             Leaderboard
-          </Link>
-          <Link to="/" className="underline-offset-4 hover:underline">
-            Home
           </Link>
         </nav>
       </header>
