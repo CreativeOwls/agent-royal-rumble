@@ -3,7 +3,6 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Textarea } from "@/components/ui/textarea";
 import { DEFAULT_WEIGHTS, type Weights } from "@/lib/match/types";
-import { cn } from "@/lib/utils";
 
 const SAMPLE_TASKS = [
   "Write a 120-word cold email that books a demo with a Series A CTO.",
